@@ -1,0 +1,29 @@
+Copyright:Yaser Abu-Mostafa
+
+Consider a sample of 10 marbles drawn from a bin containing red and green marbles.
+The probability that any marble we draw is red is (mu) = 0:55 (independently, with
+replacement). We address the probability of getting no red marbles ( = 0) in the
+following cases:
+4. We draw only one such sample. Compute the probability that v = 0. The
+closest answer is (`closest answer' means: jyour answer??given optionj is closest
+to 0):
+[a] 7:331 * 10^-6
+[b] 3:405 * 10^-4
+[c] 0:289
+[d] 0:450
+[e] 0:550
+5. We draw 1,000 independent samples. Compute the probability that (at least)
+one of the samples has  = 0. The closest answer is:
+[a] 7:331 * 10^-6
+[b] 3:405 * 10^-4
+[c] 0:289
+[d] 0:450
+[e] 0:550
+3
+
+Solution: 
+function [slope,c,absslope] = stline_parm_est(point1,point2)
+slope = (point2(2) - point1(2)) / (point2(1) - point1(1));
+c = (point1(2) - (slope * point1(1))); 
+absslope = abs(slope);
+return;

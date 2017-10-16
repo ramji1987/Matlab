@@ -1,0 +1,21 @@
+Copyright:Yaser Abu-Mostafa 
+
+Which of the following is closest to P[f(x) 6= g(x)] for N = 100?
+[a] 0.001
+[b] 0.01
+[c] 0.1
+[d] 0.5
+[e] 0.8
+ 
+Solution:
+function avgitr = solution(N)
+totitr = 0;
+for i = 1:1000
+    [result,slope,c,absslope] = classifierdataset(N);
+    [W itr] = perceptron(result);
+    result = points_classifier(N,slope,c,absslope);
+    totitr = totitr + itr;
+end
+avgitr = totitr/1000;
+return;
+
