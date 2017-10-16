@@ -1,0 +1,32 @@
+Copyright:Yaser Abu-Mostafa
+
+Now, try N = 100. How many iterations does it take on average for the PLA
+to converge for N = 100 training points? Pick the value closest to your results.
+[a] 50
+[b] 100
+[c] 500
+[d] 1000
+[e] 5000 
+
+Solution: 
+function avgprob = prob_of_misclassifed(N)
+totprob = 0;
+for i = 1:1000
+    [result,slope,c,absslope] = classifierdataset(N);
+    %Model building
+    [W itr] = perceptron(result);
+    %Generate different validation set using same boundaryi.e
+    %slope,c,absslope
+    result = points_classifier(10000,slope,c,absslope);
+    %predict the results for validation set
+    [rows cols] = size(result);
+    X0 = ones(rows,1);
+    X = [X0 result(:,1:2)];
+    h = sign((W * X')');
+    predictedset = [X result(:,3) h];
+    misclassifiedset = predictedset((predictedset(:,4) ~= predictedset(:,5)),1:4);
+    [mrows mcols] = size(misclassifiedset);
+    totprob = totprob + (mrows/10000);
+end
+avgprob = totprob/1000;
+return;

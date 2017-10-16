@@ -1,0 +1,32 @@
+The Perceptron Learning Algorithm
+In this problem, you will create your own target function f and data set D to see how the Perceptron Learning Algorithm works. Take d = 2 so you can visualize the
+problem, and assume X = [??1; 1]  [??1; 1] with uniform probability of picking each x 2 X.In each run, choose a random line in the plane as your target function f (do this bytaking two random, uniformly distributed points in [??1; 1]  [??1; 1] and taking the line passing through them), where one side of the line maps to +1 and the other maps to ??1. Choose the inputs xn of the data set as random points (uniformly in X), and evaluate the target function on each xn to get the corresponding output yn.Now, in each run, use the Perceptron Learning Algorithm to nd g. Start the PLA with the weight vector w being all zeros (consider sign(0) = 0, so all points are initially misclassied), and at each iteration have the algorithm choose a point randomly from the set of misclassied points. We are interested in two quantities: the number of iterations that PLA takes to converge to g, and the disagreement between f and g which is P[f(x) 6= g(x)] (the probability that f and g will disagree on their classication of a random point). You can either calculate this probability exactly, approximate it by generating a suciently large, separate set of points to estimate it.In order to get a reliable estimate for these two quantities, you should repeat the experiment for 1000 runs (each run as specied above) and take the average over these runs.
+7. Take N = 10. How many iterations does it take on average for the PLA to
+converge for N = 10 training points? Pick the value closest to your results
+(again, `closest' means: jyour answer ?? given optionj is closest to 0).
+[a] 1
+[b] 15
+[c] 300
+[d] 5000
+[e] 10000 
+
+Solution:
+function [W,itr] = perceptron(trainingset)
+[rows cols] = size(trainingset);
+X0 = ones(rows,1);
+X = [X0 trainingset(:,1:2)];
+W = zeros(1,3);
+itr = 0;
+while true
+    itr = itr + 1;
+    h = sign((W * X')');
+    predictedset = [X trainingset(:,3) h];
+    misclassifiedset = predictedset((predictedset(:,4) ~= predictedset(:,5)),1:4);
+    [mrows mcols] = size(misclassifiedset);
+    if(mrows == 0 || mcols == 0)
+        break;
+    end
+    rand_misclassified_point_idx = randi([1,mrows]);
+    rand_misclassified_point = misclassifiedset(rand_misclassified_point_idx,:);
+    W = W + rand_misclassified_point(4).*rand_misclassified_point(1:3);
+end
